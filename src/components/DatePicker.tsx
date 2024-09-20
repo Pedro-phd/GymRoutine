@@ -6,15 +6,16 @@ import { useState } from 'react'
 
 interface Props {
 	onChange: (data: dayjs.Dayjs) => void
+	defaultValue?: Date
 }
 
-export const DatePicker = ({ onChange }: Props) => {
+export const DatePicker = ({ onChange, defaultValue }: Props) => {
 	const [modalOpen, setModalOpen] = useState(false)
 	return (
 		<>
 			<Tooltip title='Pesquisar por data'>
 				<Button
-					type='primary'
+					type='link'
 					shape='default'
 					icon={<Calendar01Icon />}
 					onClick={() => setModalOpen(true)}
@@ -27,7 +28,12 @@ export const DatePicker = ({ onChange }: Props) => {
 				onOk={() => setModalOpen(false)}
 				onCancel={() => setModalOpen(false)}
 			>
-				<Calendar fullscreen={false} mode='month' onChange={onChange} />
+				<Calendar
+					defaultValue={dayjs(defaultValue)}
+					fullscreen={false}
+					mode='month'
+					onChange={onChange}
+				/>
 			</Modal>
 		</>
 	)

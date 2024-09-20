@@ -3,6 +3,7 @@ import './globals.css'
 import { NavBar } from '@/components'
 import { ClientProviders } from './ClientProviders'
 import { Rubik } from 'next/font/google'
+import { AppContextProvider } from '@/context/app.context'
 
 export const metadata: Metadata = {
 	title: 'Gym Routine',
@@ -20,10 +21,12 @@ export default function RootLayout({
 		<html lang='pt-BR'>
 			<body className={`antialiased ${rubik.className}`}>
 				<ClientProviders>
-					<div className='flex flex-col gap-2 h-screen'>
-						<NavBar />
-						{children}
-					</div>
+					<AppContextProvider>
+						<div className='flex flex-col gap-2 h-screen'>
+							<NavBar />
+							{children}
+						</div>
+					</AppContextProvider>
 				</ClientProviders>
 			</body>
 		</html>
