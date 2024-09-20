@@ -4,6 +4,7 @@ import { NavBar } from '@/components'
 import { ClientProviders } from './ClientProviders'
 import { Rubik } from 'next/font/google'
 import { AppContextProvider } from '@/context/app.context'
+import { message } from 'antd'
 
 export const metadata: Metadata = {
 	title: 'Gym Routine',

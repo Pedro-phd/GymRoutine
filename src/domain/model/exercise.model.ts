@@ -4,3 +4,8 @@ export interface IExercise {
   name: string
   sets: ISet[]
 }
+
+export interface IExerciseCreate {
+  name: string
+  trainingId: number
+}

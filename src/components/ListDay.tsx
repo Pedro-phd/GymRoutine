@@ -2,6 +2,7 @@ import { ITraining } from '@/domain/model'
 import { dateFormater } from '@/helpers'
 import { List, Tag, Typography } from 'antd'
 import { ListExercises } from './ListExercises'
+import { NewExercise } from './NewExercise'
 
 interface Props {
 	data: ITraining
@@ -13,11 +14,14 @@ export const ListDay = ({ data }: Props) => {
 	return (
 		<List
 			header={
-				<div className='flex gap-2 justify-between'>
+				<div className='flex gap-2 justify-between items-center'>
 					<Text strong className='capitalize'>
 						{data.name}
 					</Text>
-					<Tag color='blue'>{dateFormater(data.day)}</Tag>
+					<div className='flex gap-2 items-center'>
+						<Tag color='blue'>{dateFormater(data.day)}</Tag>
+						<NewExercise trainingId={data.id} />
+					</div>
 				</div>
 			}
 			bordered
