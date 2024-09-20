@@ -1,6 +1,7 @@
 import type { ISet } from "@/domain/model"
 
 export interface IExercise {
+  id: number
   name: string
   sets: ISet[]
 }

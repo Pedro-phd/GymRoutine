@@ -1,5 +1,6 @@
 import { IExercise } from '@/domain/model'
 import { Descriptions, List, Card, Collapse } from 'antd'
+import { NewSet } from './NewSet'
 
 interface Props {
 	data: IExercise
@@ -33,6 +34,7 @@ export const ListExercises = ({ data }: Props) => {
 				className='w-full capitalize'
 			>
 				<Collapse items={items} />
+				<NewSet exerciseId={data.id} />
 			</Card>
 		</List.Item>
 	)

@@ -5,3 +5,6 @@ export interface ISet {
   reps: number
   description?: string | null
 }
+export interface ISetCreate extends Pick<ISet, 'type' | 'weight' | 'reps' | 'description'> {
+  exerciseId: number
+}
