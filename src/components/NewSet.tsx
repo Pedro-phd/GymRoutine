@@ -1,16 +1,9 @@
 'use client'
+import { useAppContext } from '@/context/app.context'
 import { ISetCreate } from '@/domain/model'
 import { SetService } from '@/services/set.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-	Button,
-	Drawer,
-	Form,
-	Input,
-	InputNumber,
-	Tooltip,
-	message,
-} from 'antd'
+import { Button, Form, Input, InputNumber, message } from 'antd'
 import { Add01Icon } from 'hugeicons-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -41,7 +34,7 @@ interface Props {
 export const NewSet = ({ exerciseId }: Props) => {
 	const [open, setOpen] = useState(false)
 	const [messageApi, contextHolder] = message.useMessage()
-
+	const { fetchData } = useAppContext()
 	const {
 		handleSubmit,
 		control,
@@ -58,6 +51,7 @@ export const NewSet = ({ exerciseId }: Props) => {
 				type: 'success',
 				content: 'Série adicionada com sucesso!',
 			})
+			fetchData()
 		} catch (error) {
 			messageApi.open({
 				type: 'error',

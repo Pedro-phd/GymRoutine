@@ -1,25 +1,12 @@
 'use client'
-import { ListDay, ListExercises } from '@/components'
+import { ListDay } from '@/components'
 import { useAppContext } from '@/context/app.context'
-import type { ITraining } from '@/domain/model'
 import { dateFormater } from '@/helpers'
-import { TrainingService } from '@/services/training.service'
-import { Card, Empty, Space } from 'antd'
-import { useEffect, useMemo, useState } from 'react'
+import { Card, Empty, Space, message } from 'antd'
+import { useMemo } from 'react'
 
 export default function Home() {
-	const [data, setData] = useState<ITraining[]>([])
-	const [loading, setLoading] = useState(true)
-	const service = new TrainingService()
-
-	useEffect(() => {
-		service
-			.get()
-			.then((res) => setData(res))
-			.finally(() => setLoading(false))
-	}, [])
-
-	const { dateFilter } = useAppContext()
+	const { dateFilter, data, loading } = useAppContext()
 
 	const filteredData = useMemo(() => {
 		if (dateFilter) {

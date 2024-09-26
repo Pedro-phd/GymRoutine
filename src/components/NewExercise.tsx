@@ -1,4 +1,5 @@
 'use client'
+import { useAppContext } from '@/context/app.context'
 import { IExerciseCreate } from '@/domain/model'
 import { ExerciseService } from '@/services/exercise.service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,6 +32,8 @@ export const NewExercise = ({ trainingId }: Props) => {
 		resolver: zodResolver(schema),
 	})
 
+	const { fetchData } = useAppContext()
+
 	const service = new ExerciseService()
 	const submit = async (data: IExerciseCreate) => {
 		try {
@@ -41,6 +44,7 @@ export const NewExercise = ({ trainingId }: Props) => {
 			})
 			reset()
 			setIsModalOpen(false)
+			fetchData()
 		} catch (error) {
 			messageApi.open({
 				type: 'error',

@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import { TrainingService } from '@/services/training.service'
+import { useAppContext } from '@/context/app.context'
 
 const schema = z.object({
 	name: z
@@ -21,6 +22,8 @@ const schema = z.object({
 
 export const NewTraining = () => {
 	dayjs.locale('pt-br')
+
+	const { fetchData } = useAppContext()
 
 	const service = new TrainingService()
 	const [messageApi, contextHolder] = message.useMessage()
@@ -45,6 +48,7 @@ export const NewTraining = () => {
 				type: 'success',
 				content: 'Treino criado com sucesso!',
 			})
+			fetchData()
 		} catch (error) {
 			messageApi.open({
 				type: 'error',
