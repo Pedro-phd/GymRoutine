@@ -1,36 +1,10 @@
-'use client'
-import { ListDay } from '@/components'
-import { useAppContext } from '@/context/app.context'
-import { dateFormater } from '@/helpers'
-import { Card, Empty, Space, message } from 'antd'
-import { useMemo } from 'react'
+import { createClient } from '@/infra/serverSideSupabase'
 
-export default function Home() {
-	const { dateFilter, data, loading } = useAppContext()
-
-	const filteredData = useMemo(() => {
-		if (dateFilter) {
-			return data.filter(
-				(t) => dateFormater(t.day) === dateFormater(dateFilter),
-			)
-		}
-		return data
-	}, [dateFilter, data])
-
-	return (
-		<div className='w-full'>
-			<Space direction='vertical' size='middle' className='p-4 w-full'>
-				{loading && <Card loading />}
-				{filteredData.map((t) => (
-					<ListDay data={t} key={t.id} />
-				))}
-				{filteredData.length === 0 && !loading && (
-					<Empty
-						image={Empty.PRESENTED_IMAGE_SIMPLE}
-						description={<p>Sem treinos!</p>}
-					/>
-				)}
-			</Space>
-		</div>
-	)
+async function Home() {
+	const supabase = createClient()
+	const user = await supabase.auth.getUser()
+	console.log(user.data.user)
+	return <p>Olá </p>
 }
+
+export default Home

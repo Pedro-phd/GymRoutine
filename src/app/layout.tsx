@@ -21,14 +21,7 @@ export default function RootLayout({
 	return (
 		<html lang='pt-BR'>
 			<body className={`antialiased ${rubik.className}`}>
-				<ClientProviders>
-					<AppContextProvider>
-						<div className='flex flex-col gap-2 h-screen'>
-							<NavBar />
-							{children}
-						</div>
-					</AppContextProvider>
-				</ClientProviders>
+				<ClientProviders>{children}</ClientProviders>
 			</body>
 		</html>
 	)
