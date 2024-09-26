@@ -1,11 +1,17 @@
-import { createClient } from '@/infra/serverSideSupabase'
-import { redirect } from 'next/navigation'
+'use client'
+import { createClient } from '@/infra/clientsideSupabase'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-async function Logout() {
+function Logout() {
 	const supabase = createClient()
-
-	await supabase.auth.signOut()
-	await redirect('/')
+	const { push } = useRouter()
+	useEffect(() => {
+		;(async () => {
+			await supabase.auth.signOut()
+			push('/')
+		})()
+	}, [])
 
 	return <p>saindo ...</p>
 }

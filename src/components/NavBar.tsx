@@ -9,7 +9,7 @@ import { NewTraining } from './NewTraining'
 import { useRouter } from 'next/navigation'
 
 export function NavBar() {
-	const { push } = useRouter()
+	const router = useRouter()
 
 	const { setDateFilter, dateFilter } = useAppContext()
 	const { Text } = Typography
@@ -30,7 +30,7 @@ export function NavBar() {
 							type='link'
 							icon={<Logout03Icon />}
 							danger
-							onClick={() => push('/auth/logout')}
+							onClick={() => router.push('/auth/logout')}
 						/>
 					</Tooltip>
 				</div>
