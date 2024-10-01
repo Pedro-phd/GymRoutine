@@ -4,12 +4,10 @@ import { ISetCreate } from '@/domain/model'
 import { SetService } from '@/services/set.service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Collapse, Form, Input, InputNumber, message } from 'antd'
-import Panel from 'antd/es/cascader/Panel'
-import { Add01Icon, Add02Icon } from 'hugeicons-react'
+import { Add01Icon } from 'hugeicons-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FormItem } from 'react-hook-form-antd'
-import { text } from 'stream/consumers'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -40,7 +38,7 @@ export const NewSet = ({ exerciseId }: Props) => {
 	const {
 		handleSubmit,
 		control,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<ISetCreate>({
 		resolver: zodResolver(schema),
 	})
@@ -143,6 +141,7 @@ export const NewSet = ({ exerciseId }: Props) => {
 									className='min-w-8 min-h-8 p-0 ml-auto'
 									onClick={handleSubmit(submit)}
 									icon={<Add01Icon />}
+									loading={isSubmitting}
 								/>
 							</Form>
 						),

@@ -26,7 +26,7 @@ export const NewExercise = ({ trainingId }: Props) => {
 	const {
 		handleSubmit,
 		control,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 		reset,
 	} = useForm<IExerciseCreate>({
 		resolver: zodResolver(schema),
@@ -57,7 +57,11 @@ export const NewExercise = ({ trainingId }: Props) => {
 	return (
 		<div>
 			{contextHolder}
-			<Button type='link' onClick={() => setIsModalOpen(true)}>
+			<Button
+				type='link'
+				onClick={() => setIsModalOpen(true)}
+				loading={isSubmitting}
+			>
 				Novo Exercício
 			</Button>
 			<Modal

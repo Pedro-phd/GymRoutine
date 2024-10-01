@@ -33,7 +33,7 @@ export const NewTraining = () => {
 		register,
 		handleSubmit,
 		control,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<ITrainingCreate>({
 		defaultValues: {
 			day: new Date(),
@@ -67,6 +67,7 @@ export const NewTraining = () => {
 					shape='default'
 					icon={<Add01Icon />}
 					onClick={() => setOpen(true)}
+					loading={isSubmitting}
 				>
 					Novo Treino
 				</Button>
