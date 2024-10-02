@@ -3,9 +3,21 @@ import { createClient } from '@/infra/clientsideSupabase'
 import { GoogleOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { Dumbbell02Icon } from 'hugeicons-react'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 function SignIn() {
 	const supabase = createClient()
+
+	const { push } = useRouter()
+
+	useEffect(() => {
+		supabase.auth.getUser().then((res) => {
+			if (res.data.user) {
+				push('/dash')
+			}
+		})
+	}, [])
 
 	const getURL = () => {
 		let url =
@@ -17,13 +29,14 @@ function SignIn() {
 		return url
 	}
 
-	const handleLogin = () => {
-		supabase.auth.signInWithOAuth({
+	const handleLogin = async () => {
+		await supabase.auth.signInWithOAuth({
 			provider: 'google',
 			options: {
-				redirectTo: `${getURL()}/dash`,
+				redirectTo: `${getURL()}dash`,
 			},
 		})
+		push('/dash')
 	}
 
 	return (

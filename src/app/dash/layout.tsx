@@ -1,4 +1,4 @@
-import { NavBar } from '@/components'
+import { FloatingMenu, NavBar } from '@/components'
 import { AppContextProvider } from '@/context/app.context'
 
 export default function RootLayout({
@@ -10,6 +10,7 @@ export default function RootLayout({
 		<div className='flex flex-col gap-2 h-screen'>
 			<AppContextProvider>
 				<NavBar />
+				<FloatingMenu />
 				{children}
 			</AppContextProvider>
 		</div>

@@ -42,7 +42,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if(user && request.nextUrl.pathname.startsWith('/auth') && !request.nextUrl.pathname.endsWith('logout')) {
+  if(user && !request.nextUrl.pathname.startsWith('/dash')) {
     const url = request.nextUrl.clone()
     url.pathname = '/dash'
     return NextResponse.redirect(url)
