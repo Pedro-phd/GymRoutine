@@ -2,7 +2,7 @@
 
 import { ITraining } from '@/domain/model'
 import { TrainingService } from '@/services/training.service'
-import { message } from 'antd'
+import { Spin, message } from 'antd'
 import {
 	PropsWithChildren,
 	createContext,
@@ -16,6 +16,7 @@ interface IContext {
 	setDateFilter: (d: Date | null) => void
 	data: ITraining[]
 	loading: boolean
+	setLoading: (l: boolean) => void
 	fetchData: () => void
 }
 
@@ -24,6 +25,7 @@ const defaultValues: IContext = {
 	setDateFilter: (d: Date | null) => {},
 	data: [],
 	loading: true,
+	setLoading: () => {},
 	fetchData: () => {},
 }
 
@@ -73,10 +75,12 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
 				data,
 				fetchData,
 				loading,
+				setLoading,
 			}}
 		>
 			{contextHolder}
 			{children}
+			{loading && <Spin spinning={true} tip='Carregando...' fullscreen />}
 		</AppContext.Provider>
 	)
 }

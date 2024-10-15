@@ -32,13 +32,13 @@ interface Props {
 }
 
 export const NewSet = ({ exerciseId }: Props) => {
-	const [open, setOpen] = useState(false)
 	const [messageApi, contextHolder] = message.useMessage()
 	const { fetchData } = useAppContext()
 	const {
 		handleSubmit,
 		control,
 		formState: { errors, isSubmitting },
+		reset,
 	} = useForm<ISetCreate>({
 		resolver: zodResolver(schema),
 	})
@@ -51,6 +51,7 @@ export const NewSet = ({ exerciseId }: Props) => {
 				type: 'success',
 				content: 'Série adicionada com sucesso!',
 			})
+			reset()
 			fetchData()
 		} catch (error) {
 			messageApi.open({

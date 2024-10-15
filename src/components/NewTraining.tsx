@@ -17,13 +17,15 @@ const schema = z.object({
 		.string({ required_error: 'É obrigatório um nome para o treino' })
 		.min(1),
 	description: z.string().optional(),
-	day: z.date({ required_error: 'É obrigatório uma data para o treino' }),
+	day: z.coerce.date({
+		required_error: 'É obrigatório uma data para o treino',
+	}),
 })
 
 export const NewTraining = () => {
 	dayjs.locale('pt-br')
 
-	const { fetchData } = useAppContext()
+	const { fetchData, setLoading } = useAppContext()
 
 	const service = new TrainingService()
 	const [messageApi, contextHolder] = message.useMessage()
@@ -43,11 +45,14 @@ export const NewTraining = () => {
 
 	const submit = async (data: ITrainingCreate) => {
 		try {
+			setOpen(false)
+			setLoading(true)
 			await service.create({ data })
 			messageApi.open({
 				type: 'success',
 				content: 'Treino criado com sucesso!',
 			})
+			setLoading(true)
 			fetchData()
 		} catch (error) {
 			messageApi.open({
@@ -133,7 +138,7 @@ export const NewTraining = () => {
 											defaultValue={dayjs(field.value)}
 											value={dayjs(field.value)}
 											format={{
-												format: 'DD-MM-YYYY',
+												format: 'DD/MM/YYYY',
 												type: 'mask',
 											}}
 											allowClear={false}

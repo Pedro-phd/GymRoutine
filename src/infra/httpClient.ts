@@ -15,7 +15,6 @@ export class HttpClient implements IHttpClient {
       sub: user?.id,
     };
     const jwt = sign(data, secret);
-
     return jwt
   }
 
@@ -29,7 +28,8 @@ export class HttpClient implements IHttpClient {
         headers: {
           ...data.headers,
           Authorization: `Bearer ${await this.getAuth()}`
-        }
+        },
+        responseType: data.responseType
       })
     }
     catch(err) {

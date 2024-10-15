@@ -24,7 +24,7 @@ export default function Home() {
 	return (
 		<div className='w-full'>
 			<Space direction='vertical' size='middle' className='p-4 w-full'>
-				{loading && <Card loading />}
+				{/* {loading && <Card loading />} //loading */}
 				{filteredData.map((t) => (
 					<ListDay data={t} key={t.id} />
 				))}

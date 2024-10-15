@@ -32,18 +32,20 @@ export const NewExercise = ({ trainingId }: Props) => {
 		resolver: zodResolver(schema),
 	})
 
-	const { fetchData } = useAppContext()
+	const { fetchData, setLoading } = useAppContext()
 
 	const service = new ExerciseService()
 	const submit = async (data: IExerciseCreate) => {
 		try {
+			setLoading(true)
+			setIsModalOpen(false)
 			await service.create({ data: { ...data, trainingId } })
 			messageApi.open({
 				type: 'success',
 				content: 'Exercício criado com sucesso!',
 			})
+			setLoading(false)
 			reset()
-			setIsModalOpen(false)
 			fetchData()
 		} catch (error) {
 			messageApi.open({
