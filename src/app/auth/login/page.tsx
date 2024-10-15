@@ -11,14 +11,6 @@ function SignIn() {
 
 	const { push } = useRouter()
 
-	useEffect(() => {
-		supabase.auth.getUser().then((res) => {
-			if (res.data.user) {
-				push('/dash')
-			}
-		})
-	}, [])
-
 	const getURL = () => {
 		let url =
 			process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
@@ -33,10 +25,9 @@ function SignIn() {
 		await supabase.auth.signInWithOAuth({
 			provider: 'google',
 			options: {
-				redirectTo: `${getURL()}dash`,
+				redirectTo: `${getURL()}auth/callback?next=/dash`,
 			},
 		})
-		push('/dash')
 	}
 
 	return (
